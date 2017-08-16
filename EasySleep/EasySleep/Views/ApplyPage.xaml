@@ -1,0 +1,104 @@
+﻿<Page x:Class="EasySleep.Views.ApplyPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:Behaviors="using:Template10.Behaviors"
+      xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:controls="using:Template10.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:EasySleep.Views"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:vm="using:EasySleep.ViewModels" mc:Ignorable="d">
+
+    <Page.DataContext>
+        <vm:ApplyViewModel x:Name="ViewModel" />
+    </Page.DataContext>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <controls:PageHeader x:Name="pageHeader" RelativePanel.AlignLeftWithPanel="True"
+                             RelativePanel.AlignRightWithPanel="True"
+                             RelativePanel.AlignTopWithPanel="True" Text="Requête">
+
+            <controls:PageHeader.SecondaryCommands>
+                <AppBarButton Click="{x:Bind ViewModel.GoToMainScreen}" Label="Home" />
+                <AppBarButton Click="{x:Bind ViewModel.GotoSettings}" Label="Options" />
+                <AppBarButton Click="{x:Bind ViewModel.GotoAbout}" Label="Profil" />
+                <AppBarButton Click="{x:Bind ViewModel.Logout}" Label="Déconnexion" />
+            </controls:PageHeader.SecondaryCommands>
+
+        </controls:PageHeader>
+
+        <RelativePanel Margin="10" Padding="10">
+
+            <Border x:Name="border"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            BorderBrush="DimGray"
+                            BorderThickness="1"
+                            IsHitTestVisible="False"
+                            RelativePanel.AlignRightWithPanel="True"
+                            RelativePanel.AlignTopWithPanel="True">
+                <Border.Background>
+                    <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
+                </Border.Background>
+            </Border>
+
+            <TextBlock x:Name="DisplayNameTextBlock"
+                               Margin="0,0,0,12"
+                               FontSize="24"
+                               RelativePanel.AlignLeftWithPanel="True"
+                               RelativePanel.AlignRightWith="border"
+                               RelativePanel.AlignTopWithPanel="True"
+                               Text="" />
+
+            <TextBlock x:Name="LastNameTitleTextBlock"
+                               Margin="5"
+                               RelativePanel.AlignLeftWithPanel="True"
+                               RelativePanel.Below="DisplayNameTextBlock"
+                               Text="Nom de famille : " />
+            <TextBlock x:Name="LastNameTextBlock"
+                               Margin="5"
+                               RelativePanel.Below="DisplayNameTextBlock" 
+                               RelativePanel.RightOf="LastNameTitleTextBlock"
+                               Text="{Binding LastName, Mode=TwoWay}" />
+
+            <TextBlock x:Name="FirstNameTitleTextBlock"
+                               Margin="5"
+                               RelativePanel.AlignLeftWithPanel="True"
+                               RelativePanel.Below="LastNameTitleTextBlock"
+                               Text="Prénom : " />
+            <TextBlock x:Name="FirstNameTextBlock"
+                               Margin="5"
+                               RelativePanel.Below="LastNameTitleTextBlock" 
+                               RelativePanel.RightOf="FirstNameTitleTextBlock"
+                               Text="{Binding FirstName, Mode=TwoWay}" />
+
+            <TextBlock x:Name="BornDateTitleTextBlock"
+                               Margin="5"
+                               RelativePanel.AlignLeftWithPanel="True"
+                               RelativePanel.Below="FirstNameTitleTextBlock"
+                               Text="Date de naissance : " />
+            <TextBlock x:Name="BornDateTextBlock"
+                               Margin="5"
+                               RelativePanel.Below="FirstNameTitleTextBlock" 
+                               RelativePanel.RightOf="BornDateTitleTextBlock"
+                               Text="{Binding BornDate, Mode=TwoWay}" />
+
+            <Button x:Name="AcceptButton" 
+                            Margin="5"
+                            RelativePanel.Below="BornDateTitleTextBlock"
+                            Content="Accepter"
+                            Click="{x:Bind ViewModel.AcceptRequest}" />
+
+            <Button x:Name="DeclineButton" 
+                            Margin="5"
+                            RelativePanel.RightOf="AcceptButton"
+                            RelativePanel.Below="BornDateTitleTextBlock"
+                            Content="Refuser"
+                            Click="{x:Bind ViewModel.DeclineRequest}" />
+        </RelativePanel>
+
+    </Grid>
+</Page>
+    

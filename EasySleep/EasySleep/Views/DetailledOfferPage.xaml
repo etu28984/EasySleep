@@ -1,0 +1,72 @@
+﻿<Page x:Class="EasySleep.Views.DetailledOfferPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:Behaviors="using:Template10.Behaviors"
+      xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:controls="using:Template10.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:EasySleep.Views"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:vm="using:EasySleep.ViewModels" mc:Ignorable="d">
+
+    <Page.DataContext>
+        <vm:DetailledOfferViewModel x:Name="ViewModel" />
+    </Page.DataContext>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <controls:PageHeader x:Name="pageHeader" RelativePanel.AlignLeftWithPanel="True"
+                             RelativePanel.AlignRightWithPanel="True"
+                             RelativePanel.AlignTopWithPanel="True" Text="EasySleep">
+
+            <controls:PageHeader.SecondaryCommands>
+                <AppBarButton Click="{x:Bind ViewModel.GoToMainScreen}" Label="Home" />
+                <AppBarButton Click="{x:Bind ViewModel.GotoSettings}" Label="Options" />
+                <AppBarButton Click="{x:Bind ViewModel.GotoAbout}" Label="Profil" />
+                <AppBarButton Click="{x:Bind ViewModel.Logout}" Label="Déconnexion" />
+            </controls:PageHeader.SecondaryCommands>
+
+        </controls:PageHeader>
+
+        <Grid>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="4*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock x:Name="CityTextBlock" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2"  TextWrapping="Wrap" Text="Ville :" VerticalAlignment="Center"/>
+            <TextBlock x:Name="City" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" TextWrapping="Wrap" Text="{Binding City, Mode=TwoWay}"/>
+            <TextBlock x:Name="PostalTextBlock" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="3"  TextWrapping="Wrap" Text="Code Postal :" VerticalAlignment="Center"/>
+            <TextBlock x:Name="Postal" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" TextWrapping="Wrap"  Text="{Binding PostalCode, Mode=TwoWay}"/>
+            <TextBlock x:Name="StreetTextBlock" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="4"  TextWrapping="Wrap" Text="Rue :" VerticalAlignment="Center"/>
+            <TextBlock x:Name="Street" Grid.Column="2" Grid.Row="4" VerticalAlignment="Center" Width="Auto" Text="{Binding Street, Mode=TwoWay}"/>
+            <TextBlock x:Name="HouseNumberTextBlock" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="5"  TextWrapping="Wrap" Text="Numéro : " VerticalAlignment="Center"/>
+            <TextBlock x:Name="HouseNumber" Grid.Column="2" Grid.Row="5" VerticalAlignment="Center" TextWrapping="Wrap" Text="{Binding HouseNum, Mode=TwoWay}"/>
+            <TextBlock x:Name="AboutOfferTextBlock" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="6"  TextWrapping="Wrap" Text="A propos de l'offre" VerticalAlignment="Center"/>
+            <TextBlock x:Name="DescriptionTextBlock" Grid.Column="1" Grid.Row="7" VerticalAlignment="Center" TextWrapping="Wrap" Text="Description :"/>
+            <TextBlock x:Name="Description" Grid.Column="2" Grid.Row="7" VerticalAlignment="Center" TextWrapping="Wrap" Text="{Binding Description, Mode=TwoWay}" />
+            <TextBlock x:Name="MaxPeopleTextBlock" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="8"  TextWrapping="Wrap" Text="Nombre max :" VerticalAlignment="Center"/>
+            <TextBlock x:Name="MaxPeople" Grid.Column="2" Grid.Row="8" VerticalAlignment="Center" Text="{Binding MaxPeople, Mode=TwoWay}"/>
+            
+            <Button x:Name="SendRequestButton" Grid.Column="1" Grid.Row="11" Content="Postuler" HorizontalAlignment="Center" VerticalAlignment="Center" Click="{x:Bind ViewModel.SendRequest}" />
+            
+        </Grid>
+    </Grid>
+</Page>
