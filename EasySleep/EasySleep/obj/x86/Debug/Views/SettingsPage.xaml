@@ -1,0 +1,201 @@
+﻿<Page x:ConnectionId='1' x:Class="EasySleep.Views.SettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:Behaviors="using:Template10.Behaviors"
+      xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:controls="using:Template10.Controls"
+      xmlns:converter="using:Template10.Converters"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:EasySleep.Views"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:vm="using:EasySleep.ViewModels"
+      mc:Ignorable="d">
+
+    <Page.DataContext>
+        <vm:SettingsPageViewModel x:ConnectionId='2' x:Name="ViewModel" />
+    </Page.DataContext>
+    <Page.Resources>
+        <converter:ValueWhenConverter x:ConnectionId='3' x:Name="FalseWhenTrueConverter">
+            <converter:ValueWhenConverter.When>
+                <x:Boolean>True</x:Boolean>
+            </converter:ValueWhenConverter.When>
+            <converter:ValueWhenConverter.Value>
+                <x:Boolean>False</x:Boolean>
+            </converter:ValueWhenConverter.Value>
+            <converter:ValueWhenConverter.Otherwise>
+                <x:Boolean>True</x:Boolean>
+            </converter:ValueWhenConverter.Otherwise>
+        </converter:ValueWhenConverter>
+    </Page.Resources>
+
+    <RelativePanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        
+        <!--  header  -->
+        <controls:PageHeader x:ConnectionId='4' x:Name="pageHeader" RelativePanel.AlignLeftWithPanel="True"
+                             RelativePanel.AlignRightWithPanel="True"
+                             RelativePanel.AlignTopWithPanel="True" Text="Page de configuration">
+
+            <controls:PageHeader.SecondaryCommands>
+                <AppBarButton x:ConnectionId='20'                                           Label="Home" />
+                <AppBarButton x:ConnectionId='21'                                         Label="Options" />
+                <AppBarButton x:ConnectionId='22'                                      Label="Profil" />
+                <AppBarButton x:ConnectionId='23'                                   Label="Déconnexion" />
+            </controls:PageHeader.SecondaryCommands>
+
+        </controls:PageHeader>
+
+
+        <!--  content  -->
+        <Pivot x:ConnectionId='5' x:Name="MyPivot"
+               Grid.Row="1"
+               RelativePanel.AlignBottomWithPanel="True"
+               RelativePanel.AlignLeftWithPanel="True"
+               RelativePanel.AlignRightWithPanel="True"
+               RelativePanel.Below="pageHeader">
+
+            <!--  settings  -->
+            <PivotItem DataContext="{Binding SettingsPartViewModel}" Header="Options">
+                <ScrollViewer Margin="0,12,-12,0"
+                              HorizontalContentAlignment="Left"
+                              VerticalScrollBarVisibility="Auto">
+                    <RelativePanel HorizontalAlignment="Left">
+
+                        <ToggleSwitch x:ConnectionId='18' x:Name="UseShellDrawnBackButtonToggleSwtich"
+                                      Header="Bouton retour"
+                                      IsOn="{Binding UseShellBackButton, Mode=TwoWay}"
+                                      OffContent="Ne pas afficher"
+                                      OnContent="Afficher dans la tête de page"
+                                      RelativePanel.AlignLeftWithPanel="True"
+                                      RelativePanel.AlignTopWithPanel="True" />
+
+                        <ToggleSwitch x:ConnectionId='19' x:Name="UseLightThemeToggleSwitch"
+                                      Header="Thème de l'application"
+                                      IsOn="{Binding UseLightThemeButton, Mode=TwoWay}"
+                                      OffContent="Thème actuel : Sombre"
+                                      OnContent="Thème actuel : Clair"
+                                      RelativePanel.AlignLeftWithPanel="True"
+                                      RelativePanel.Below="UseShellDrawnBackButtonToggleSwtich" />
+
+                        </RelativePanel>
+
+                </ScrollViewer>
+            </PivotItem>
+
+            <!--  about  -->
+            <PivotItem Header="A propos de vous">
+                <RelativePanel DataContext="{Binding AboutPartViewModel}" Margin="10" Padding="10">
+
+                    <Border x:ConnectionId='6' x:Name="LogoImage"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            BorderBrush="DimGray"
+                            BorderThickness="1"
+                            IsHitTestVisible="False"
+                            RelativePanel.AlignRightWithPanel="True"
+                            RelativePanel.AlignTopWithPanel="True">
+                        <Border.Background>
+                            <SolidColorBrush Color="{ThemeResource SystemAccentColor}" />
+                        </Border.Background>
+                        <Image Margin="12"
+                               Source="{Binding Logo}"
+                               Stretch="None" />
+                    </Border>
+
+                    <TextBlock x:ConnectionId='7' x:Name="DisplayNameTextBlock"
+                               Margin="0,0,0,12"
+                               FontSize="24"
+                               RelativePanel.AlignLeftWithPanel="True"
+                               RelativePanel.AlignRightWith="LogoImage"
+                               RelativePanel.AlignTopWithPanel="True"
+                               Text="EasySleep" />
+                    
+                    <TextBlock x:ConnectionId='8' x:Name="LastNameTitleTextBlock"
+                               Margin="5"
+                               RelativePanel.AlignLeftWithPanel="True"
+                               RelativePanel.Below="DisplayNameTextBlock"
+                               Text="Nom de famille : " />
+                    <TextBlock x:ConnectionId='9' x:Name="LastNameTextBlock"
+                               Margin="5"
+                               RelativePanel.Below="DisplayNameTextBlock" 
+                               RelativePanel.RightOf="LastNameTitleTextBlock"
+                               Text="{Binding LastName, Mode=TwoWay}" />
+
+                    <TextBlock x:ConnectionId='10' x:Name="FirstNameTitleTextBlock"
+                               Margin="5"
+                               RelativePanel.AlignLeftWithPanel="True"
+                               RelativePanel.Below="LastNameTitleTextBlock"
+                               Text="Prénom : " />
+                    <TextBlock x:ConnectionId='11' x:Name="FirstNameTextBlock"
+                               Margin="5"
+                               RelativePanel.Below="LastNameTitleTextBlock" 
+                               RelativePanel.RightOf="FirstNameTitleTextBlock"
+                               Text="{Binding FirstName, Mode=TwoWay}" />
+
+                    <TextBlock x:ConnectionId='12' x:Name="BornDateTitleTextBlock"
+                               Margin="5"
+                               RelativePanel.AlignLeftWithPanel="True"
+                               RelativePanel.Below="FirstNameTitleTextBlock"
+                               Text="Date de naissance : " />
+                    <TextBlock x:ConnectionId='13' x:Name="BornDateTextBlock"
+                               Margin="5"
+                               RelativePanel.Below="FirstNameTitleTextBlock" 
+                               RelativePanel.RightOf="BornDateTitleTextBlock"
+                               Text="{Binding BornDate, Mode=TwoWay}" />
+
+                    <Button x:ConnectionId='14' x:Name="ChangePasswordButton" 
+                            Margin="5"
+                            RelativePanel.Below="BornDateTitleTextBlock"
+                            Content="Changer mot de passe"
+                                                                      />
+
+                    <Button x:ConnectionId='15' x:Name="MyOfferButton" 
+                            Margin="5"
+                            RelativePanel.Below="ChangePasswordButton"
+                            Content="Mon Offre"
+                                                                   />
+
+                    <TextBlock x:ConnectionId='16' x:Name="RequestsTextBlock"
+                               Margin="5"
+                               RelativePanel.Below="MyOfferButton" 
+                               Text="Personne(s) souhaitant loger chez vous : " />
+
+                    <ListView x:ConnectionId='17' x:Name="AllRequestsListView" 
+                                                                         
+                              RelativePanel.Below="RequestsTextBlock"
+                              SelectedIndex="{Binding SelectedItem, Mode=TwoWay}"
+                                                                                  
+                              Margin="10">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Rectangle Width="44" Height="44" Grid.RowSpan="2"/>
+                                    <TextBlock Margin="10" Text="{Binding FirstName, Mode=TwoWay}" Grid.Column="0" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="Padding" Value="0.4"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </ListView>
+
+                </RelativePanel>
+            </PivotItem>
+        </Pivot>
+
+    </RelativePanel>
+
+</Page>
+
